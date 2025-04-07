@@ -15,7 +15,6 @@ bool ledState = false;
 
 #define HW_TIMER_INTERVAL_MS 10
 #define SELECTED_TIMER TIMER_TC3
-volatile unsigned long lastButtonPress = 0;
 
 // Init selected SAMD timer
 SAMDTimer ITimer(SELECTED_TIMER);
@@ -44,13 +43,9 @@ void MotionInterrupt_RIGHT() {
 }
 
 void ButtonInterrupt() {
-  unsigned long now = millis();
-  if (now - lastButtonPress > 200) {
     ledState = !ledState;
     digitalWrite(LED_BLUE, ledState);
     Serial.println("ButtonInterrupt");
-    lastButtonPress = now;
-  }
 }
 
 void setup() {
